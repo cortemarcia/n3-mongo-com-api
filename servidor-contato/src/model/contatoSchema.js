@@ -15,7 +15,8 @@ const ContatoSchema = new Schema({
     celular: {
     type: String,
     unique: true
-}
+},
+
 })
 
 

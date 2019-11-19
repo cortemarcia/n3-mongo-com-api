@@ -1,19 +1,19 @@
 const model = require("../model/contatoSchema")
 
 const getAll = (request, response) => {
-
   model.find((error, contatos) => {
 
+
+    // CALLBACK-->
     if (error) {
+      // if (error !== null && error !== undefined )
       return response.status(500).send(error)
     } else {
       return response.status(200).send(contatos)
     }
   })
 };
-//   console.log(request.url)
-//   // response.status(200).send(model.agenda)
-// }
+
 
 const add = (request, response) => {
   //novo objeto para nossa coleção
@@ -28,25 +28,30 @@ const add = (request, response) => {
       return response.status(201).send(contato)
     }
   })
+};
+
+// Aprendendo a criar rota por nome:-->
+const getByName = (request, response) => {
+  const nomeParams = request.params.nome
+  // UTILIZANDO regex no params.nome
+  const regex = new RegExp(nomeParams, "i")
+  const filtro = { nome: regex }
+
+  // CALL BACK-->
+  model.find(filtro, (error, contatos) => {
+    if (error) {
+      return response.status(500).send(error)
+    } else {
+      return response.status(200).send(contatos)
+    }
+  })
+
 }
-// let contato = request.body
-// let baseDados = model.agenda.contatos
-// contato.id = Math.random().toString(36).substr(-8)
 
-//   if (!contato.nome || !contato.dataNascimento || !contato.celular) {
-//     response.status(400).send("Dados inválidos");
-//   } else {
-//     if (baseDados.find(dado => dado.nome === contato.nome)) {
-//       response.status(400).send("Contato já cadastrado")
-//     } else {
-//       model.agenda.contatos.push(contato)
-//       response.status(201).send(contato)
-//     }
-//   }
 
-// }
 
 module.exports = {
   getAll,
-  add
+  add,
+  getByName
 }
