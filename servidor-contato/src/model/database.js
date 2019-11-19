@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-const DB_URL= "mongodb://localhost:27017/reprograma"
+const DB_URL= "mongodb://localhost:27017/reprograma" //link do mongo
 
 
 const connect= () =>{
