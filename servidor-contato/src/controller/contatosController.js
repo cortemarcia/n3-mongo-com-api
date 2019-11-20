@@ -40,7 +40,13 @@ const getByName = (request, response) => {
     if (error) {
       return response.status(500).send(error)
     } else {
-      return response.status(200).send(contatos)
+      if(contatos.length > 0){
+        return response.status(200).send(contatos)
+      }else{
+        return response.status(404).send("Nome não encontrado")
+          
+      }
+      
     }
   })
 
@@ -53,9 +59,14 @@ const getById= (request, response)=>{
 
   model.findById(Id, (error, contato) => {
     if (error) {
-      return response.status(404).send(error)
+      return response.status(500).send(error)
     } else {
-      return response.status(200).send(contato)
+      if (contato){
+        return response.status(200).send(contato)
+      }else{
+        return response. status(404).send("Contato não encontrado")
+      }
+      
     }
   })
 }
