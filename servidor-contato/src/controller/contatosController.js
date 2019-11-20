@@ -72,6 +72,7 @@ const getById= (request, response)=>{
   })
 };
 
+// Rota delete
 const deletar = (request, response) =>{
   const nomeParams = request.params.nome
 
