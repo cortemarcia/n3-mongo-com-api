@@ -52,6 +52,7 @@ const getByName = (request, response) => {
 
 };
 
+
 // Fazer a rota /contatos/id/:id buscando o id no mongo utilizando um metodo diferente de .find()
 
 const getById= (request, response)=>{
@@ -69,10 +70,28 @@ const getById= (request, response)=>{
       
     }
   })
-}
+};
+
+const deletar = (request, response) =>{
+  const nomeParams = request.params.nome
+
+  model.findOneAndDelete(nomeParams, (error) => {
+    if (error) {
+      return response.status(500).send(error)
+    } else {      
+        return response.status(200).send("Apagou")      
+          
+      }
+      
+  })
+
+};
+
+
 module.exports = {
   getAll,
   add,
   getByName,
-  getById
+  getById,
+  deletar
 }
