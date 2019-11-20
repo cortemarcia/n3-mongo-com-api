@@ -2,8 +2,6 @@ const model = require("../model/contatoSchema")
 
 const getAll = (request, response) => {
   model.find((error, contatos) => {
-
-
     // CALLBACK-->
     if (error) {
       // if (error !== null && error !== undefined )
@@ -14,7 +12,7 @@ const getAll = (request, response) => {
   })
 };
 
-
+// POST-->
 const add = (request, response) => {
   //novo objeto para nossa coleção
   const contatoDoBody = request.body
@@ -46,12 +44,24 @@ const getByName = (request, response) => {
     }
   })
 
+};
+
+// Fazer a rota /contatos/id/:id buscando o id no mongo utilizando um metodo diferente de .find()
+
+const getById= (request, response)=>{
+  const Id = request.params.id
+
+  model.findById(Id, (error, contato) => {
+    if (error) {
+      return response.status(404).send(error)
+    } else {
+      return response.status(200).send(contato)
+    }
+  })
 }
-
-
-
 module.exports = {
   getAll,
   add,
-  getByName
+  getByName,
+  getById
 }
