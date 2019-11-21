@@ -89,6 +89,8 @@ const deletar = (request, response) => {
 };
 
 // Rota Patch
+// fazer nossa rota de PATCH, usando o mongoose, pra atualizar um contato passando o ID como parametro
+
 const patchById = (request, response)=> {  
   const id= request.params.id
   const body = request.body ///qusou po Body, usar parse no Route
