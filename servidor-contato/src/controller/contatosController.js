@@ -40,13 +40,13 @@ const getByName = (request, response) => {
     if (error) {
       return response.status(500).send(error)
     } else {
-      if(contatos.length > 0){
+      if (contatos.length > 0) {
         return response.status(200).send(contatos)
-      }else{
+      } else {
         return response.status(404).send("Nome não encontrado")
-          
+
       }
-      
+
     }
   })
 
@@ -55,44 +55,62 @@ const getByName = (request, response) => {
 
 // Fazer a rota /contatos/id/:id buscando o id no mongo utilizando um metodo diferente de .find()
 
-const getById= (request, response)=>{
+const getById = (request, response) => {
   const Id = request.params.id
 
   model.findById(Id, (error, contato) => {
     if (error) {
       return response.status(500).send(error)
     } else {
-      if (contato){
+      if (contato) {
         return response.status(200).send(contato)
-      }else{
-        return response. status(404).send("Contato não encontrado")
+      } else {
+        return response.status(404).send("Contato não encontrado")
       }
-      
+
     }
   })
 };
 
 // Rota delete
-const deletar = (request, response) =>{
+const deletar = (request, response) => {
   const nomeParams = request.params.nome
 
   model.findOneAndDelete(nomeParams, (error) => {
     if (error) {
       return response.status(500).send(error)
-    } else {      
-        return response.status(200).send("Apagou")      
-          
-      }
-      
+    } else {
+      return response.status(200).send("Apagou")
+
+    }
+
   })
 
 };
 
+// Rota Patch
+const patchById = (request, response)=> {  
+  const id= request.params.id
+  const body = request.body ///qusou po Body, usar parse no Route
+  const options = {new: true}
+  
+  model.findByIdAndUpdate(id, body, options, (error, contato) => {
+    if (error) {
+      return response.status(500).send(error)
+    } else if (contato){
+      return response.status(200).send(contato)
+    }else{
+      return response.sendStatus(404)
+    }
+
+  })
+}
 
 module.exports = {
   getAll,
   add,
   getByName,
   getById,
-  deletar
+  deletar,
+  patchById
 }
