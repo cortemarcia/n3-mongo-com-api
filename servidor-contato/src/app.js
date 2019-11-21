@@ -1,8 +1,11 @@
 const express = require("express")
 const app = express()
-
+const bodyParser = require("body-parser")
 const database = require('./model/database')
 database.connect()
+
+//middleWare
+app.use(bodyParser.json())
 
 //rotas
 const index = require("./routes/index")
@@ -16,6 +19,7 @@ app.use(function (request, response, next) {
   )
   next()
 })
+
 
 app.use("/", index)
 app.use("/contatos", contatos)
